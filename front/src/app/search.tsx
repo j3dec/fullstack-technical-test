@@ -7,6 +7,7 @@ import { ProductCard } from "./components/ProductCard";
 import { SearchPagination } from "./components/SearchPagination";
 import Link from "next/link";
 import { useCart } from "./context/CartContext";
+import { useEffect, useState } from "react";
 
 const searchClient = algoliasearch(
   "latency",
@@ -15,9 +16,22 @@ const searchClient = algoliasearch(
 
 export function Search() {
   const { items } = useCart();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
-    <InstantSearchNext indexName="bestbuy" searchClient={searchClient}>
+    <InstantSearchNext
+      indexName="bestbuy"
+      searchClient={searchClient}
+      future={{ preserveSharedStateOnUnmount: true }}
+    >
       <div className="w-full max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <SearchBox
