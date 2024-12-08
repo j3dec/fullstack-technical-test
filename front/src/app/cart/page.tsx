@@ -8,7 +8,15 @@ export default function CartPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-8">Mon Panier</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold">Mon Panier</h1>
+        <Link
+          href="/"
+          className="text-blue-500 hover:text-blue-600 flex items-center gap-2"
+        >
+          ← Retour à la recherche
+        </Link>
+      </div>
 
       {items.length === 0 ? (
         <div className="text-center py-8">

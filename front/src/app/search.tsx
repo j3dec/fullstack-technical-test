@@ -4,6 +4,7 @@ import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
 import { SearchBox, Hits } from "react-instantsearch";
 import { ProductCard } from "./components/ProductCard";
+import { SearchPagination } from "./components/SearchPagination";
 import Link from "next/link";
 import { useCart } from "./context/CartContext";
 
@@ -43,6 +44,7 @@ export function Search() {
             item: "h-full",
           }}
         />
+        <SearchPagination />
       </div>
     </InstantSearchNext>
   );
