@@ -4,6 +4,8 @@ import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
 import { SearchBox, Hits } from "react-instantsearch";
 import { ProductCard } from "./components/ProductCard";
+import Link from "next/link";
+import { useCart } from "./context/CartContext";
 
 const searchClient = algoliasearch(
   "latency",
@@ -11,20 +13,29 @@ const searchClient = algoliasearch(
 );
 
 export function Search() {
+  const { items } = useCart();
+
   return (
     <InstantSearchNext indexName="bestbuy" searchClient={searchClient}>
       <div className="w-full max-w-6xl mx-auto px-4">
-        <SearchBox
-          placeholder="Rechercher un produit..."
-          className="mb-8"
-          classNames={{
-            root: "relative",
-            input:
-              "w-full p-4 border rounded-lg dark:bg-gray-800 dark:border-gray-700",
-            submit: "hidden",
-            reset: "hidden",
-          }}
-        />
+        <div className="flex justify-between items-center mb-8">
+          <SearchBox
+            placeholder="Rechercher un produit..."
+            classNames={{
+              root: "relative flex-1 mr-4",
+              input:
+                "w-full p-4 border rounded-lg dark:bg-gray-800 dark:border-gray-700",
+              submit: "hidden",
+              reset: "hidden",
+            }}
+          />
+          <Link
+            href="/cart"
+            className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+          >
+            Panier ({items.length})
+          </Link>
+        </div>
         <Hits
           hitComponent={ProductCard}
           classNames={{
